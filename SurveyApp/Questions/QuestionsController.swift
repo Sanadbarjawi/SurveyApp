@@ -10,11 +10,15 @@ import Combine
 
 final class QuestionsController: UITableViewController {
     
-    private var viewModel: QuestionsViewModel =
+    var viewModel: QuestionsViewModel =
     QuestionsViewModel(service: QuestionService())
     
     @IBOutlet private var submitFooterView: UIView!
-    @IBOutlet private weak var submitButton: UIButton!
+    @IBOutlet private weak var submitButton: UIButton! {
+        didSet {
+            submitButton.addTarget(self, action: #selector(didTapSubmitButton), for: .touchUpInside)
+        }
+    }
     
     private var cancellable: Set<AnyCancellable> = []
     
@@ -50,7 +54,7 @@ final class QuestionsController: UITableViewController {
 
         viewModel.$state
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { state in
+            .sink(receiveValue: { [weak self] state in
                 switch state {
                 case .loading: break
                     //start loading
@@ -58,6 +62,10 @@ final class QuestionsController: UITableViewController {
                     //finish loading
                 case .error(_): break
                     //show error
+                case .submitSucceeded:
+                    self?.showAlert(message: "Success")
+                case .submitFailed:
+                    self?.showAlert(message: "Failed")
                 }
             }).store(in: &cancellable)
         
@@ -69,40 +77,8 @@ final class QuestionsController: UITableViewController {
             }).store(in: &cancellable)
     }
     
-    // MARK: - Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.survey?.questions.count ?? 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.survey?.questions[section].answers.count ?? 0
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: AnswerCell.identifier, for: indexPath) as? AnswerCell
-        else {return UITableViewCell()}
-        
-        guard let answer = viewModel.survey?.questions[indexPath.section].answers[indexPath.row] else {return UITableViewCell()}
-        let viewModel = AnswerCellViewModel(answer: answer.title, isSelected: answer.isSelected ?? false)
-        cell.viewModel = viewModel
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.setSelected(at: indexPath)
-        tableView.reloadData()
-        viewModel.validateSubmit()
-    }
- 
-    
-    override func tableView(_ tableView: UITableView,
-            viewForHeaderInSection section: Int) -> UIView? {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: QuestionCell.identifier) as? QuestionCell,
-              let question = viewModel.survey?.questions[section].query
-        else {return nil}
-        
-        cell.viewModel = QuestionCellViewModel(question: question)
-       return cell
+    @objc private func didTapSubmitButton() {
+        viewModel.validateAnswers()
     }
     
 }

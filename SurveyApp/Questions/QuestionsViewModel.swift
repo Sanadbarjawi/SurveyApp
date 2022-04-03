@@ -17,6 +17,8 @@ final class QuestionsViewModel {
     enum QuestionsViewModelState: Equatable {
         case loading
         case finishedLoading
+        case submitSucceeded
+        case submitFailed
         case error(QuestionsViewModelError)
     }
     
@@ -73,6 +75,22 @@ extension QuestionsViewModel {
             isSubmitButtonEnabled = true
         } else {
             isSubmitButtonEnabled = false
+        }
+    }
+    
+    func validateAnswers() {
+        
+        if survey?.questions.allSatisfy({ question in
+            return question.answers.filter({$0.isSelected == true && $0.correct == true}).count == 1
+        }) == true {
+            //did succeed quiz
+            print("success")
+            self.state = .submitSucceeded
+            
+        } else {
+            print("fail")
+            self.state = .submitFailed
+            //did fail quiz
         }
     }
 }

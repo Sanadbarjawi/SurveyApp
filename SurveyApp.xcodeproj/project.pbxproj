@@ -22,6 +22,8 @@
 		C9AF0D5A27F9BA6A0073F58A /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF0D5827F9BA6A0073F58A /* AnswerCell.swift */; };
 		C9AF0D5B27F9BA6A0073F58A /* AnswerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9AF0D5927F9BA6A0073F58A /* AnswerCell.xib */; };
 		C9AF0D5F27F9BAEB0073F58A /* AnswerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AF0D5E27F9BAEB0073F58A /* AnswerCellViewModel.swift */; };
+		C9B264B827FA3B00007C1799 /* QuestionsController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B264B727FA3B00007C1799 /* QuestionsController+TableView.swift */; };
+		C9B264BA27FA3C16007C1799 /* Alert+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B264B927FA3C16007C1799 /* Alert+ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		C9AF0D5827F9BA6A0073F58A /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		C9AF0D5927F9BA6A0073F58A /* AnswerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerCell.xib; sourceTree = "<group>"; };
 		C9AF0D5E27F9BAEB0073F58A /* AnswerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCellViewModel.swift; sourceTree = "<group>"; };
+		C9B264B727FA3B00007C1799 /* QuestionsController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestionsController+TableView.swift"; sourceTree = "<group>"; };
+		C9B264B927FA3C16007C1799 /* Alert+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+ViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,9 +93,10 @@
 			isa = PBXGroup;
 			children = (
 				C987B28B27F8606C005E7150 /* Cell */,
-				C987B28227F85E93005E7150 /* QuestionsController.swift */,
-				C987B28927F86031005E7150 /* Questions.storyboard */,
 				C987B29627F879B5005E7150 /* QuestionsViewModel.swift */,
+				C987B28227F85E93005E7150 /* QuestionsController.swift */,
+				C9B264B727FA3B00007C1799 /* QuestionsController+TableView.swift */,
+				C987B28927F86031005E7150 /* Questions.storyboard */,
 			);
 			path = Questions;
 			sourceTree = "<group>";
@@ -109,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				C987B28827F85F16005E7150 /* Binder */,
+				C9B264B927FA3C16007C1799 /* Alert+ViewController.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -149,9 +155,9 @@
 		C9AF0D5C27F9BA6F0073F58A /* AnswerCell */ = {
 			isa = PBXGroup;
 			children = (
+				C9AF0D5E27F9BAEB0073F58A /* AnswerCellViewModel.swift */,
 				C9AF0D5827F9BA6A0073F58A /* AnswerCell.swift */,
 				C9AF0D5927F9BA6A0073F58A /* AnswerCell.xib */,
-				C9AF0D5E27F9BAEB0073F58A /* AnswerCellViewModel.swift */,
 			);
 			path = AnswerCell;
 			sourceTree = "<group>";
@@ -242,11 +248,13 @@
 				C987B28327F85E93005E7150 /* QuestionsController.swift in Sources */,
 				C987B28E27F86085005E7150 /* QuestionCell.swift in Sources */,
 				C9AF0D5F27F9BAEB0073F58A /* AnswerCellViewModel.swift in Sources */,
+				C9B264BA27FA3C16007C1799 /* Alert+ViewController.swift in Sources */,
 				C987B29727F879B5005E7150 /* QuestionsViewModel.swift in Sources */,
 				C987B28027F85A1E005E7150 /* Box.swift in Sources */,
 				C987B29527F86904005E7150 /* QuestionService.swift in Sources */,
 				C987B29327F8688A005E7150 /* Question.swift in Sources */,
 				C987B26C27F85434005E7150 /* AppDelegate.swift in Sources */,
+				C9B264B827FA3B00007C1799 /* QuestionsController+TableView.swift in Sources */,
 				C987B29127F86483005E7150 /* QuestionCellViewModel.swift in Sources */,
 				C9AF0D5A27F9BA6A0073F58A /* AnswerCell.swift in Sources */,
 			);
