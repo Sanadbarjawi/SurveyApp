@@ -23,6 +23,8 @@ final class QuestionsViewModel {
     @Published private(set) var questions: [Question] = []
     @Published private(set) var survey: Survey?
     @Published private(set) var state: QuestionsViewModelState = .loading
+    @Published private(set) var isSubmitButtonEnabled: Bool = false
+    
     private var service: QuestionServiceProtocol
     
     private var cancellables: Set<AnyCancellable> = []

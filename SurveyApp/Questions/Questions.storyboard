@@ -4,6 +4,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,8 +24,37 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="bc5-4K-DBL"/>
+                    <connections>
+                        <outlet property="submitButton" destination="Gpd-u5-yGh" id="pvr-B9-ynb"/>
+                        <outlet property="submitFooterView" destination="149-bK-Fe9" id="m5d-2w-R72"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uiz-AK-mLF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="149-bK-Fe9">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="53"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gpd-u5-yGh">
+                            <rect key="frame" x="12" y="6.5" width="369" height="40"/>
+                            <color key="backgroundColor" name="AccentColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="LHZ-eO-NRK"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Submit">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="QiR-iw-eGM"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="Gpd-u5-yGh" firstAttribute="centerY" secondItem="149-bK-Fe9" secondAttribute="centerY" id="Ets-8i-YYn"/>
+                        <constraint firstItem="Gpd-u5-yGh" firstAttribute="leading" secondItem="149-bK-Fe9" secondAttribute="leading" constant="12" id="bFp-SO-aPG"/>
+                        <constraint firstAttribute="trailing" secondItem="Gpd-u5-yGh" secondAttribute="trailing" constant="12" id="oJg-9l-O1Q"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="985.50724637681162" y="-40.178571428571423"/>
         </scene>
@@ -47,6 +78,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

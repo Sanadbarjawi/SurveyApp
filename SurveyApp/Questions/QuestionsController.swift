@@ -13,6 +13,9 @@ final class QuestionsController: UITableViewController {
     private var viewModel: QuestionsViewModel =
     QuestionsViewModel(service: QuestionService())
     
+    @IBOutlet private var submitFooterView: UIView!
+    @IBOutlet private weak var submitButton: UIButton!
+    
     private var cancellable: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
@@ -25,8 +28,6 @@ final class QuestionsController: UITableViewController {
     }
     
     private func configureTableView() {
-        tableView.register(MyCustomHeader.self,
-            forHeaderFooterViewReuseIdentifier: "sectionHeader")
         
         let questionCell = UINib(nibName: "\(QuestionCell.self)", bundle: nil)
         tableView.register(questionCell, forCellReuseIdentifier: QuestionCell.identifier)
@@ -34,7 +35,9 @@ final class QuestionsController: UITableViewController {
         let answerCell = UINib(nibName: "\(AnswerCell.self)", bundle: nil)
         tableView.register(answerCell, forCellReuseIdentifier: AnswerCell.identifier)
         
+        tableView.tableFooterView = submitFooterView
         tableView.tableHeaderView = UIView()
+        
     }
     
     private func bindViewModelToView() {
@@ -57,21 +60,24 @@ final class QuestionsController: UITableViewController {
                     //show error
                 }
             }).store(in: &cancellable)
+        
+        viewModel.$isSubmitButtonEnabled
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: {[weak self] isEnabled in
+                self?.submitButton.isEnabled = isEnabled
+                self?.submitButton.alpha = isEnabled ? 1.0 : 0.5
+            }).store(in: &cancellable)
     }
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return viewModel.survey?.questions.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return viewModel.survey?.questions[section].answers.count ?? 0
     }
     
-    
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AnswerCell.identifier, for: indexPath) as? AnswerCell
         else {return UITableViewCell()}
