@@ -8,6 +8,19 @@
 import UIKit
 import Combine
 
+extension QuestionsController {
+    static func getQuestionsController() -> UIViewController {
+        let storyBoard = UIStoryboard(name: "Questions", bundle: nil)
+        let controller = storyBoard.instantiateViewController(identifier: "\(QuestionsController.self)") { coder -> QuestionsController? in
+            let viewModel = QuestionsViewModel(service: QuestionService())
+            let questionsController = QuestionsController(coder: coder, viewModel: viewModel)
+            return questionsController
+        }
+        return controller
+//        controller.navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
 final class QuestionsController: UITableViewController {
     
     var viewModel: QuestionsViewModel =
@@ -18,6 +31,15 @@ final class QuestionsController: UITableViewController {
         didSet {
             submitButton.addTarget(self, action: #selector(didTapSubmitButton), for: .touchUpInside)
         }
+    }
+    
+    init?(coder: NSCoder, viewModel: QuestionsViewModel) {
+        super.init(coder: coder)
+        self.viewModel = viewModel
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
     }
     
     private var cancellable: Set<AnyCancellable> = []
