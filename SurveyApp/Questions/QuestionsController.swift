@@ -81,10 +81,17 @@ final class QuestionsController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AnswerCell.identifier, for: indexPath) as? AnswerCell
         else {return UITableViewCell()}
-        let answer = viewModel.survey?.questions[indexPath.section].answers[indexPath.row].title ?? "N/A"
-        let viewModel = AnswerCellViewModel(answer: answer)
+        
+        guard let answer = viewModel.survey?.questions[indexPath.section].answers[indexPath.row] else {return UITableViewCell()}
+        let viewModel = AnswerCellViewModel(answer: answer.title, isSelected: answer.isSelected ?? false)
         cell.viewModel = viewModel
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.setSelected(at: indexPath)
+        tableView.reloadData()
+        viewModel.validateSubmit()
     }
  
     

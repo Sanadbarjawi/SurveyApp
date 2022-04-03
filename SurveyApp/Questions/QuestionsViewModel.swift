@@ -20,7 +20,6 @@ final class QuestionsViewModel {
         case error(QuestionsViewModelError)
     }
     
-    @Published private(set) var questions: [Question] = []
     @Published private(set) var survey: Survey?
     @Published private(set) var state: QuestionsViewModelState = .loading
     @Published private(set) var isSubmitButtonEnabled: Bool = false
@@ -55,5 +54,25 @@ extension QuestionsViewModel {
             .getSurvey()
             .sink(receiveCompletion: onCompletion, receiveValue: valueHandler)
             .store(in: &cancellables)
+    }
+    
+    func setSelected(at indexPath: IndexPath) {
+        survey?.questions[indexPath.section].answers = survey?.questions[indexPath.section].answers.compactMap { answer -> Answer? in
+            let tempAnswer: Answer = answer
+            tempAnswer.isSelected = false
+            return tempAnswer
+        } ?? []
+        survey?.questions[indexPath.section].answers[indexPath.row].isSelected = true
+    }
+    
+    func validateSubmit() {
+        
+        if survey?.questions.allSatisfy({ question in
+            return question.answers.filter({$0.isSelected == true}).count == 1
+        }) == true {
+            isSubmitButtonEnabled = true
+        } else {
+            isSubmitButtonEnabled = false
+        }
     }
 }

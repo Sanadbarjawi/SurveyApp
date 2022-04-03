@@ -9,21 +9,25 @@ import UIKit
 
 class AnswerCell: UITableViewCell {
     
-    @IBOutlet weak var titleLabel: UILabel!
-    
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var selectedImageView: UIImageView!
+
     static var identifier: String = String(format: "%@", "\(AnswerCell.self)")
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        selectedImageView.image = UIImage(systemName: "circle")
+    }
     
     var viewModel: AnswerCellViewModel? {
         didSet {
-            setupBindings()
+            configureData()
         }
     }
     
-    func setupBindings() {
-        
-        viewModel?.answer.bind({ string in
-            self.titleLabel.text = string
-        })
+    func configureData() {
+        self.titleLabel.text = viewModel?.answer
+        self.selectedImageView.image = UIImage(systemName: (viewModel?.isSelected ?? false) ? "circle.fill" : "circle")
     }
     
 }

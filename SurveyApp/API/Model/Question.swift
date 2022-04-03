@@ -7,16 +7,32 @@
 
 import Foundation
 
-struct Survey: Codable {
+class Survey: Codable {
+    internal init(questions: [Question]) {
+        self.questions = questions
+    }
+    
     var questions: [Question]
 }
 
-struct Question: Codable {
+class Question: Codable {
+    internal init(query: String, answers: [Answer]) {
+        self.query = query
+        self.answers = answers
+    }
+    
     var query: String
     var answers: [Answer]
 }
 
-struct Answer: Codable {
+class Answer: Codable {
+    internal init(title: String, correct: Bool, isSelected: Bool = false) {
+        self.title = title
+        self.correct = correct
+        self.isSelected = isSelected
+    }
+    
     var title: String
     var correct: Bool
+    var isSelected: Bool? = false
 }

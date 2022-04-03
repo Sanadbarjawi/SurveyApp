@@ -6,11 +6,14 @@
 //
 
 import Foundation
+import Combine
 
 class AnswerCellViewModel {
-    var answer: Box<String> = .init("")
+    var answer: String
+    var isSelected: Bool = false
     
-    init(answer: String) {
-        self.answer.value = answer
+    init(answer: String, isSelected: Bool) {
+        self.answer = answer
+        self.isSelected = isSelected
     }
 }
